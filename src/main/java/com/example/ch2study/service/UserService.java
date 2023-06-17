@@ -8,11 +8,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
     private final UserRepo userRepo;
+
+    public List<CH2StudyUser> getAllUsers() {
+        return new ArrayList<>(userRepo.findAll());
+    }
 
     public CH2StudyUser createNewUser(String userName, String password) {
         CH2StudyUser ch2StudyUser = CH2StudyUser.builder()

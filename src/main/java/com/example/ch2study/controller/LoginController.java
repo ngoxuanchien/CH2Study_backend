@@ -10,7 +10,7 @@ public class LoginController {
     @GetMapping
     public String showHomePage() {
         System.out.println(1);
-        return "index";
+        return "Home";
     }
 
     @GetMapping("login")

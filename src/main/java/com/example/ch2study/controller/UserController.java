@@ -6,12 +6,15 @@ import lombok.RequiredArgsConstructor;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
     private ConcurrentHashMap<String, CH2StudyUser> users;
@@ -24,8 +27,8 @@ public class UserController {
     }
 
     @GetMapping
-    public String getHello() {
-        return "Hello";
+    public ResponseEntity<List<CH2StudyUser>> getUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
     }
 
     @GetMapping(value = "/{id}")
@@ -40,17 +43,14 @@ public class UserController {
     }
 
     @PutMapping(value="/{id}")
-    public CH2StudyUser updateUser(
-            @PathVariable("id") String id,
-            @RequestBody CH2StudyUser userUpdate
+    public CH2StudyUser updateUser(@PathVariable("id") String id,
+                                   @RequestBody CH2StudyUser userUpdate
     ) {
         return userUpdate;
     }
 
     @DeleteMapping(value="/{id}")
-    public CH2StudyUser deleteUser(
-            @PathVariable("id") String id
-    ) {
+    public CH2StudyUser deleteUser(@PathVariable("id") String id) {
         CH2StudyUser userDelete = users.remove(id);
         return userDelete;
     }
