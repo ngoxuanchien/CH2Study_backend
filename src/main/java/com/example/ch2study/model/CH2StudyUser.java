@@ -3,6 +3,7 @@ package com.example.ch2study.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+
 @Getter
 @Setter
 @AllArgsConstructor
