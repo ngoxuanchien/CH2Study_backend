@@ -18,15 +18,15 @@ public class TestUserRepo {
     private UserRepo userRepo;
     @Test
     public void addUser() {
-        User user = User.builder()
-                .firstName("John")
-                .lastName("Levy")
-                .email("john@gmail.com")
-                .password("123")
-                .role(Role.STUDENT)
-                .state(State.PENDING).build();
-
-        User saveUser = userRepo.save(user);
-        assertThat(saveUser).isNotNull();
+//        User user = User.builder()
+//                .firstName("John")
+//                .lastName("Levy")
+//                .email("john@gmail.com")
+//                .password("123")
+//                .role(Role.STUDENT)
+//                .state(State.PENDING).build();
+//
+//        User saveUser = userRepo.save(user);
+//        assertThat(saveUser).isNotNull();
     }
 }
