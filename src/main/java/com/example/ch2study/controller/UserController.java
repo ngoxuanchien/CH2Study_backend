@@ -2,11 +2,10 @@ package com.example.ch2study.controller;
 
 import com.example.ch2study.model.CH2StudyUser;
 import com.example.ch2study.service.UserService;
-import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.webjars.NotFoundException;
 
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -30,8 +29,13 @@ public class UserController {
     }
 
     @GetMapping(value = "/{id}")
-    public CH2StudyUser getUser(@PathVariable("id") String id) {
-        return users.get(id);
+    public ResponseEntity<CH2StudyUser> getUser(@PathVariable("id") Integer userId) {
+        try {
+            CH2StudyUser user = userService.getUser(userId);
+            return ResponseEntity.ok(user);
+        } catch (NotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
@@ -41,17 +45,24 @@ public class UserController {
     }
 
     @PutMapping(value="/{id}")
-    public CH2StudyUser updateUser(@PathVariable("id") String id,
-                                   @RequestBody CH2StudyUser userUpdate
+    public ResponseEntity<CH2StudyUser> updateUser(@PathVariable("id") Integer userId,
+                                   @RequestBody CH2StudyUser newUser
     ) {
-        return userUpdate;
+        try {
+            CH2StudyUser user = userService.updateUser(userId ,newUser);
+            return ResponseEntity.ok(user);
+        } catch (NotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping(value="/{id}")
-    public CH2StudyUser deleteUser(@PathVariable("id") String id) {
-        CH2StudyUser userDelete = users.remove(id);
-        return userDelete;
+    public ResponseEntity<CH2StudyUser> deleteUser(@PathVariable("id") Integer userId) {
+        try {
+            CH2StudyUser user = userService.deleteUser(userId);
+            return ResponseEntity.ok(user);
+        } catch (NotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
-
-
 }
